@@ -70,3 +70,48 @@
 - reducer 함수에서 절대로 state를 mutate 하면 안되고, 새로운 state를 반환해야 했다.
 - 배열 state를 mutation없이 반환하기 위해서 filter를 이용했다.
 - subscribe는 store의 변화를 감지해 작업을 실행시킨다.
+
+## Part 3
+
+### 3.0
+
+- react-redux todo 셋업
+- BrowserRouter, Routes, Route를 react-router-dom으로부터 import해서 라우팅
+
+### 3.1
+
+- store.js에서 store를 만들고, action객체 생성 함수, reducer 함수를 만들어서 export 한다.
+- index.js에서는 App 컴포넌트를 react-redux에서 import해온 Provider로 감싸고 store props로 store를 준다.
+
+### 3.2
+
+- 컴포넌트들을 store와 연결시켜주는 connect
+- connect의 첫번째 인자 `mapStateToProps`는 store로부터 state를 Home으로 가져다준다.(props로)
+- `mapStateToProps`는 redux store로부터 온 state와 component의 props(옵션)를 인자로 받는 함수다.
+- connect 함수는 리턴값을 Home의 props 객체에 추가해준다.
+- `connect()()` 에서 두번째 괄호 안에는 연결할 컴포넌트명을 적는다.(ES6 Currying?)
+- connect 함수는 현재 버전에서도 여전히 지원되지만, 기본적으로 hooks API를 사용하는 것이 좋다. useSelector 훅을 사용해 store의 state를 바로 가져올 수 있다.
+- `useSelector`는 redux store의 상태를 조회하는 Hook이다. useSelector 인자함수의 인자로 오는 state는 `store.getState()` 함수를 호출했을 때의 결과와 같다.
+
+### 3.3
+
+- connect의 두번째 인자 `mapDispatchToProps`는 컴포넌트의 props로 dispatch함수를 보내준다.
+- 앞 장에서 `mapStateToProps`대신 `useSelector`를 사용한 것과 마찬가지로 `mapDispatchToProps` 대신 `useDispatch`로 구현하면 편하다.
+- `useDispatch`는 redux store의 dispatch를 함수에서 사용할 수 있게 해주는 Hook이다.
+- store.js에서 action객체 생성함수를 불러와 dispatch 함수의 인자로 전달하면 reducer가 실행되고 state가 갱신된다.
+- [3.2, 3.3 참고 링크 1](https://react.vlpt.us/redux/05-counter.html) / [3.2, 3.3 참고 링크 2](https://react.vlpt.us/redux/09-connect.html)
+
+### 3.4
+
+- ToDo 컴포넌트를 생성해서 connect함수를 사용해 li태그에 렌더링하기
+- `useSelector`, `useDispatch`를 사용하면 컴포넌트 분리 없이 Home에서 map함수로 렌더링할 수 있다.
+- 삭제 버튼에 이벤트리스너 함수를 연결하고 dispatch로 deleteToDo에 클릭한 버튼의 id를 보내주면 state가 갱신되고 재렌더링된다.
+
+### 3.5
+
+- useParams를 이용해 디테일페이지의 파라미터를 가져오고, useSelector로 state를 가져와 파라미터와 일치하는 toDo의 text와 id를 적절하게 출력한다.
+- `todoText?.text`에서 `?`는 Javascript Optional Chaining 문법이다.
+
+### 3.6
+
+- (challenge) localStorage에 state 저장하기 구현
