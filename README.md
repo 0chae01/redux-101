@@ -115,3 +115,38 @@
 ### 3.6
 
 - (challenge) localStorage에 state 저장하기 구현
+
+## Part 4
+
+### 4.0
+
+- redux를 사용하려면 너무 많은 양의 코드가 필요하다는 단점이 있다.
+- redux toolkit은 많은 지름길들이 있는 패키지다. 적은 양의 코드로 같은 기능을 하도록 돕는다.
+
+### 4.1
+
+- action을 생성할 때 변수를 생성하고, action 객체를 리턴하는 함수를 만들고 이용해야 했다. 객체 안에서 필수로 사용해야하는 type을 제외하면 이름을 자유롭게 짓고 사용했다.
+- redux toolkit의 `createAction` 함수를 이용하면 action을 생성하는데, 이 객체는 type과 payload로만 이루어져 있다. 즉, action으로부터 무언가를 받으면 payload에 배치된다.
+
+### 4.2
+
+- `createReducer`를 사용하면 기존에 reducer 함수에서 사용하던 switch문을 사용하지 않아도 된다.
+- `createReducer`에서는 state를 mutate하는 것이 가능하다.
+- mutate를 하거나, 새로운 state를 리턴하는 것 둘 다 가능하다.(redux toolkit 내부에서 immerjs를 사용하기 때문) return을 할 때는 꼭 새로운 state여야 한다.
+- `createReducer`의 첫번째 인자는 initialState이고, 두번째 인자 안에서 기존의 switch 문을 대신하는 로직을 작성하면 된다.
+
+### 4.3
+
+- `configureStore`는 미들웨어와 함께 store를 생성하는 함수다.
+- `configureStore`를 사용하면 redux dev tools를 사용할 수 있다.
+- 브라우저에서 redux dev tools를 사용하면, action과 state를 시간별로 확인하고 되돌려 볼 수 있다. dispatch를 직접 입력해볼 수도 있다.
+
+### 4.4
+
+- `createSlice`는 createSlice로 만든 slice를 받아 reducer와 action을 모두 자동적으로 생성해준다.
+- 내부적으로는 createAction과 createReducer를 사용하기 때문에 여전히 state의 mutation이 가능하다.
+
+### 4.5
+
+- redux만으로 작성했을 때 길어지는 코드들을 redux toolkit을 활용하면 훨씬 짧게 줄일 수 있다.
+- 끝!
